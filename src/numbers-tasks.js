@@ -211,7 +211,7 @@ function isPrime(n) {
   if (n <= 1) {
     return false;
   }
-  for (let i = 2; i * i <= n; i + 1) {
+  for (let i = 2; i <= Math.sqrt(n); i += 1) {
     if (n % i === 0) {
       return false;
     }
@@ -237,6 +237,9 @@ function isPrime(n) {
 function toNumber(value, def) {
   if (typeof value === 'number') {
     return value;
+  }
+  if (!Number.isNaN(parseInt(value, 10))) {
+    return parseInt(value, 10);
   }
   return def;
 }
@@ -304,8 +307,8 @@ function getSumToN(n) {
 function getSumOfDigits(num) {
   return num
     .toString()
-    .split()
-    .reduce((partialSum, a) => partialSum + a);
+    .split('')
+    .reduce((partialSum, a) => partialSum + parseInt(a, 10), 0);
 }
 
 /**
@@ -408,7 +411,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return number < 0 ? number * -1 : number;
+  return number.valueOf();
 }
 
 /**
@@ -456,7 +459,8 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  return parseFloat(str);
+  const parsedFloat = parseFloat(str);
+  return Number.isNaN(parsedFloat) ? NaN : parsedFloat;
 }
 
 /**
@@ -579,7 +583,7 @@ function getSumOfNumbers(x1, x2, x3) {
  * 0, 5   => 5
  */
 function getMaxNumber(firstNumber, secondNumber) {
-  return firstNumber > secondNumber ? firstNumber : secondNumber;
+  return Math.max(firstNumber, secondNumber);
 }
 
 /**
@@ -609,7 +613,7 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  return Math.sqrt(a * a + b * b);
+  return Math.hypot(a, b);
 }
 
 /**
@@ -627,7 +631,7 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let count = 0;
-  for (let i = 0; i <= number; i += 1) {
+  for (let i = 0; i <= number; i + 1) {
     if (i % 2 !== 0) {
       count += 1;
     }
