@@ -459,8 +459,8 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  const parsedFloat = parseFloat(str);
-  return Number.isNaN(parsedFloat) ? NaN : parsedFloat;
+  const number = Number.parseFloat(str);
+  return Number.isNaN(number) ? NaN : number;
 }
 
 /**
@@ -478,7 +478,8 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseInt(str, base);
+  const parsedInt = Number.parseInt(str, base);
+  return Number.isNaN(parsedInt) ? NaN : parsedInt;
 }
 
 /**
@@ -631,7 +632,7 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let count = 0;
-  for (let i = 0; i <= number; i + 1) {
+  for (let i = 0; i <= Math.abs(number); i += 1) {
     if (i % 2 !== 0) {
       count += 1;
     }
